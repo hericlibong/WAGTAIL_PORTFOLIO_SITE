@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">{{ page.title }}</h1>
+    <p class="text-muted text-center">{{ page.introduction|richtext }}</p>
+
+    <div class="article-list">
+        {% for article in recent_articles %}
+        <div class="card mb-4">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ article.image.url }}" class="img-fluid rounded-start" alt="{{ article.title }}">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ article.url }}" class="text-decoration-none text-dark">{{ article.title }}</a>
+                        </h5>
+                        <p class="card-text text-muted"><small>Publié le {{ article.date }}</small></p>
+                        <p class="card-text">{{ article.introduction }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aucun article récent disponible.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
